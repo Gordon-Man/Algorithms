@@ -1,0 +1,42 @@
+
+/*
+Given: [1,2,3,4,5,6,7,8,-1,-2,-3,-4,-5]
+
+give me all possible sums of zero with 3 integers.
+
+function must return a list of list of integers:
+
+EX:     { [1,2,-3], [2,3,-5], [-1,2,-1], [5,-4,-1] }
+
+we are return a list of lists because we are finding all possible combinations of three numbers that add up to zero.
+*/
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) 
+    {
+        List<List<Integer>> solution_set = new ArrayList<>();
+
+        for(int x = 0; x < nums.length - 2; x++)
+        {
+            for(int y = x + 1; y < nums.length - 1; y++)
+            {
+                for(int z = x + 2; z < nums.length; z++)
+                {
+                    if (nums[x] + nums[y] + nums[z] == 0)
+                    {
+                        List<Integer> solution = new ArrayList<>();  
+                        solution.add(nums[x]);
+                        solution.add(nums[y]);
+                        solution.add(nums[z]);
+                        solution_set.add(solution);
+                    }
+                    z++;
+                }
+                y++;
+            }
+            x++;
+        }     
+       return solution_set;
+    }
+}
+
