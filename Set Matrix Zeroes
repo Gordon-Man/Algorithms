@@ -1,0 +1,44 @@
+/* 
+Problem:
+
+loop through a given matrix, if you find a zero, change all elements in the same row/column as the zero that you found
+
+algorithm must be done in-place.
+
+let's mark the columns and rows that need to be changed into zeroes, and storing these numbers into a list of some sort.
+
+once we know which column and row is required to change, we iterate through the entire matrix and change it.
+*/
+
+class Solution 
+{
+    public void setZeroes(int[][] matrix) 
+    {
+        List<Integer> Row = new ArrayList<>();
+        List<Integer> Col = new ArrayList<>();
+        
+        //keeping track of which rows and columns that will be changed to zeroes
+        for (int i = 0; i < matrix.length; i++)
+        {
+            for (int j = 0; j < matrix[i].length; j++)
+            {
+                if (matrix[i][j] == 0)
+                {
+                    Row.add(i);
+                    Col.add(j);
+                }
+            }
+        }
+        
+        //loop through the matrix, and if our current position either row or column are in our lists,           
+        //change it to a zero.
+        for (int i = 0; i < matrix.length; i++)
+        {
+            for (int j = 0; j < matrix[i].length; j++)
+            {
+                if (Row.contains(i) || Col.contains(j))
+                    matrix[i][j] = 0;
+            }     
+        }  
+    }
+}
