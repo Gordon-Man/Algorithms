@@ -1,0 +1,64 @@
+/*
+    Write a function that takes in an array of strings, 
+    and returns a new array of strings that will append to each string, 
+    the last word of another random string in the input array
+*/
+
+#include <iostream>
+#include <string>
+#include <stdlib.h>  
+#include <time.h>   
+
+using namespace std;
+
+string get_last_word(string input)
+{
+    string last_word = "";
+    size_t found = input.rfind(" ");
+    
+    if (found != string::npos)
+        last_word = input.substr(found, input.length() - 1);
+        
+    return last_word;    
+}
+
+int main()
+{
+    string test_cases[6] = 
+    {
+        "Hello World, My name is Gordon", 
+        "I like to eat pancakes", 
+        "Just like Homer Simpson", 
+        "Care to take a bite", 
+        "Order me three pancakes please", 
+        "Each phrase is complete"
+    };
+    string solution[6] = {"","","","","",""};
+    
+    srand (time(NULL));
+    
+    //fill solution array
+    for (int i = 0; i < 6; i++)
+    {
+        int rand_num = rand() % 5 + 0;
+        solution[i] = test_cases[i] + get_last_word(test_cases[rand_num]);
+    }
+    
+    //print solution array
+    for (int i = 0; i < 6; i++)
+        cout << solution[i] << endl;
+    
+    get_last_word("Hello my name is Gordon");
+    return 0;
+}
+
+/*
+    Example Output:
+    
+    Hello World, My name is Gordon pancakes                                                                                                                                                                                    
+    I like to eat pancakes bite                                                                                                                                                                                                
+    Just like Homer Simpson please                                                                                                                                                                                             
+    Care to take a bite pancakes                                                                                                                                                                                               
+    Order me three pancakes please bite                                                                                                                                                                                        
+    Each phrase is complete Gordon 
+*/
