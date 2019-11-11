@@ -1,0 +1,38 @@
+/* 
+    function takes in a string and 
+    returns a string that contains the last two characters of the input string 
+    in reverse with a space in between
+*/    
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string reverse_last_two(string input)
+{
+    if (input.size() < 2)
+    {
+        string error_message = "Error: string is too short.";
+        cout << error_message;
+        return error_message;
+    }
+
+    string last_two = "";
+    last_two = input[input.length()-1];
+    last_two += " ";
+    last_two += input[input.length()-2];
+    cout << last_two << endl;
+
+    return last_two;
+}
+
+int main()
+{
+    string test_cases[6] = {"Hello", "WORLD", "Gordon", "Man", "Number", "1"};
+
+    for (int i = 0; i < 6; i++)
+        string test = reverse_last_two(test_cases[i]);
+
+    return 0;
+}
