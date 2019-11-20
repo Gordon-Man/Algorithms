@@ -1,0 +1,103 @@
+/*
+PROBLEM:
+
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
+
+Output:
+[
+  ["ate","eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+_____________________________________________________________________________________________________________________________
+
+SOLUTION:
+
+First, create an integer array of zeroes with same size as given string array
+
+Loop through string array, and check the same index of the integer array,
+
+    if integer array at the same index is a zero, proceed to check for anagrams,
+        once you add element into a solution list, set the same element in the integer array to a one
+    if integer array at same index is a one, skip to next element
+        //because we no longer need to check for anagrams of that specific index because it is already in the solution
+
+Pretty much loop through the array until everything in the integer array is a one
+*/
+
+class Solution {
+    
+    //checks an array to see if any element equals zero
+    public boolean zero_exist(int array[])
+    {
+        boolean flag = false;
+        
+        for (int x: array)
+            if (x == 0)
+                flag = true;
+        
+        return flag;
+    }
+    
+    public boolean is_anagram(String a, String b)
+    {
+        int c = a.length();
+        int d = b.length();
+        
+        if (c != d)
+            return false;
+        
+        char[] x = a.toCharArray();
+        char[] y = b.toCharArray();
+        Arrays.sort(x);
+        Arrays.sort(y);
+        
+        for(int i = 0; i < a.length(); i++)
+            if (x[i] != y[i])
+                return false;
+        
+        return true;
+    }
+    
+    public List<List<String>> groupAnagrams(String[] strs) 
+    {
+        List<List<String>> solution = new ArrayList<>();
+        List<String> solution_set = new ArrayList<>();
+        int arr[] = new int[strs.length];
+        Arrays.fill(arr, 0);
+        boolean add = false;
+        int i = 0;
+        
+        if (strs.length == 0)
+            return solution;
+        
+        while (zero_exist(arr))
+        {
+            //Check if current element has been added to the solution_set
+            if (arr[i] == 0)
+            {
+                solution_set = new ArrayList<>();
+                solution_set.add(strs[i]);
+                arr[i] = 1;
+                add = true;
+            }
+            
+            for (int j = i+1; j < strs.length; j++)
+            {
+                if (arr[j] == 0)
+                {
+                    if (is_anagram(strs[i], strs[j]))
+                    {
+                        solution_set.add(strs[j]);
+                        arr[j] = 1;
+                    }
+                }
+            }
+            i++;
+            if (add == true)
+                solution.add(solution_set);
+            add = false;
+        }
+        return solution;
+    }
+}
